@@ -1,9 +1,18 @@
 const teams = [];
 
 const addTeams = () => {
-  const text1 = `Currently there are ${teams.length} do you want to add :`;
-  const text2 = '\n'
-  const teamName = prompt(text1);
-} 
+  console.clear();
+  const text1 = `Currently there are ${teams.length} team. press no to quit`;
+  const text2 = "\n\nTeam Name : ";
+  const teamName = prompt(text1 + text2);
+  
+  if (teamName === 'no') {
+    return;
+  }
 
-addTeams()
+  teams.push({ name: teamName });
+  addTeams();
+};
+
+addTeams();
+console.log(teams);
