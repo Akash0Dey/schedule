@@ -1,22 +1,44 @@
-// round 1 => t1 vs t2 // t3 vs t4
-// round 2 => t1 vs t3 // t2 vs t4
-// round 3 => t1 vs t4 // t2 vs t3
+const teams = [
+  { name: "team 1" },
+  { name: "team 2" },
+  { name: "team 3" },
+  { name: "team 4" },
+];
 
-const teams = ['t1', 't2', 't3', 't4', 't5'];
-function generateSchedule(teams) {
-  const schedule = [];
-  for (let index = 0; index < teams.length; index++) {
-    const homeTeam = teams[index];
-    for (let newIndex = index + 1; newIndex < teams.length; newIndex++) {
-      const awayTeam = teams[newIndex];
-      schedule.push({ homeTeam, awayTeam });
-    }
+const schedule = [
+  { team1: "team 1", team2: "team 6", isScheduled: false },
+  { team1: "team 1", team2: "team 5", isScheduled: false },
+  { team1: "team 1", team2: "team 3", isScheduled: false },
+  { team1: "team 1", team2: "team 4", isScheduled: false },
+  { team1: "team 1", team2: "team 2", isScheduled: false },
+  { team1: "team 6", team2: "team 5", isScheduled: false },
+  { team1: "team 6", team2: "team 3", isScheduled: false },
+  { team1: "team 6", team2: "team 4", isScheduled: false },
+  { team1: "team 6", team2: "team 2", isScheduled: false },
+  { team1: "team 5", team2: "team 3", isScheduled: false },
+  { team1: "team 5", team2: "team 4", isScheduled: false },
+  { team1: "team 5", team2: "team 2", isScheduled: false },
+  { team1: "team 3", team2: "team 4", isScheduled: false },
+  { team1: "team 3", team2: "team 2", isScheduled: false },
+  { team1: "team 4", team2: "team 2", isScheduled: false }
+];
+
+let matchNo = 1;
+for (let round = 0; round < 1; round++) {
+  const matchedTeams = [];
+  while (matchedTeams.length < 6) {
+    const match = schedule.findLast(
+      ({ team1, team2, isScheduled }) =>
+        !(
+          isScheduled ||
+          matchedTeams.includes(team1) ||
+          matchedTeams.includes(team2)
+        )
+    );
+    console.log(schedule, match);
+    match["match"] = matchNo++;
+    match.isScheduled = true;
+    matchedTeams.push(match.team1, match.team2);
   }
-
-  return schedule;
 }
-const matches = generateSchedule(teams);
-
-
-
-console.log(matches);
+console.log(schedule);
